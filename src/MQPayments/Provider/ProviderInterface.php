@@ -13,4 +13,7 @@ namespace MQPayments\Provider;
 
 interface ProviderInterface
 {
+	public function setConfig(array $config, \MQPayments\Service\ProviderConfig $paymentConfig);
+	
+	public function getPaymentConfig();
 }

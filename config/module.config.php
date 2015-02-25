@@ -1,6 +1,11 @@
 <?php
 
 return array(
+	'view_helpers' => array(  
+        'invokables' => array(  
+            'payments' => 'MQPayments\View\Helper\Payments',
+        ),
+    ),
 	'service_manager' => array(
 	    'invokables' => array(
             'MQPayments\Provider\ProviderManager' => 'MQPayments\Provider\ProviderManager',
@@ -17,7 +22,7 @@ return array(
 		'default_method'	=> 'ideal',
 		'provider'			=> 'mollie',
 		'provider_config'	=>	array(
-			'api_key'	=> '',	
+			'apiKey'	=> '',	
 		),
 	),
 );

@@ -32,8 +32,10 @@ class ProviderFactory implements FactoryInterface
             $providerConfig->setPaymentMethods($config['methods']);
         }
         
-        $providerManager = $this->getServiceLocator()->get('MQPayments\Provider\ProviderManager');
+        $providerManager = $serviceLocator->get('MQPayments\Provider\ProviderManager');
         $provider = $providerManager->get($config['provider']);
+
+        $provider->setConfig($config['provider_config'], $providerConfig);
           
         return $provider;
     }
