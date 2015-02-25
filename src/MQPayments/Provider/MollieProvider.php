@@ -12,6 +12,7 @@
 namespace MQPayments\Provider;
 
 use Mollie_API_Client;
+use Mollie_API_Object_Method;
 use MQPayments\Exception\RuntimeException;
 
 class MollieProvider implements ProviderInterface
@@ -20,14 +21,23 @@ class MollieProvider implements ProviderInterface
 	
 	private $paymentConfig;
 	
-	public function setConfig(array $config, \MQPayments\Service\ProviderConfig $paymentConfig) {
+	private $paymentMethod;
+	private $idealIssuer;
+	private $metadata = array();
+	private $locale = 'nl';
+	private $webhook;
+	
+	public function setConfig(array $config) {
 		
 		while(list($key, $val) = each($config)) {
 			
 			if(property_exists($this, $key))
 				$this->{$key} = $val;
-		}
+		}		
+	}
 	
+	public function setPaymentConfig(\MQPayments\Service\ProviderConfig $paymentConfig) {
+		
 		$this->paymentConfig = $paymentConfig;	
 	}
 	
@@ -46,6 +56,21 @@ class MollieProvider implements ProviderInterface
 		return $mollie;
 	}
 	
+	public function getPaymentMethodId($method) {
+		
+		switch($method) {
+			
+			case 'ideal':
+				return Mollie_API_Object_Method::IDEAL;
+			break;
+			case 'creditcard': 
+				return Mollie_API_Object_Method::CREDITCARD;
+			break;
+			default:
+				return Mollie_API_Object_Method::CREDITCARD;
+		}
+	}
+	
 	public function getIdealIssuers() {
 		
 		$mollie = $this->getMollie();
@@ -53,5 +78,36 @@ class MollieProvider implements ProviderInterface
 		$issuers = $mollie->issuers->all();
 
 		return $issuers;
+	}
+	
+	public function createPayment($amount, $description, $redirectUrl) {
+		
+		$mollie = $this->getMollie();
+		
+		$data = array(
+	        "amount"      	=> $amount,
+			"description" 	=> $description,
+			"redirectUrl" 	=> $redirectUrl,
+			"method"		=> $this->paymentMethod,
+			"metadata"		=> $this->metadata,
+			"webhookUrl"	=> $this->webhook,
+			"locale"		=> $this->locale,
+		);
+		
+		if($this->paymentMethod == Mollie_API_Object_Method::IDEAL)
+			$data['issuer'] = $this->idealIssuer;
+		
+		$payment = $mollie->payments->create($data);
+		
+		return $payment;
+	}
+	
+	public function getPayment($id) {
+		
+		$mollie = $this->getMollie();
+		
+		$payment    = $mollie->payments->get($id);
+		
+		return $payment;
 	}
 }

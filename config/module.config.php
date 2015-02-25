@@ -21,6 +21,7 @@ return array(
 		),
 		'default_method'	=> 'ideal',
 		'provider'			=> 'mollie',
+		'order_description'	=> 'order #%d',
 		'provider_config'	=>	array(
 			'apiKey'	=> '',	
 		),

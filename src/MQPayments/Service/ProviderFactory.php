@@ -31,12 +31,16 @@ class ProviderFactory implements FactoryInterface
         if (array_key_exists('methods', $config)) {
             $providerConfig->setPaymentMethods($config['methods']);
         }
+        if (array_key_exists('order_description', $config)) {
+            $providerConfig->setOrderDescription($config['order_description']);
+        }
         
         $providerManager = $serviceLocator->get('MQPayments\Provider\ProviderManager');
         $provider = $providerManager->get($config['provider']);
 
-        $provider->setConfig($config['provider_config'], $providerConfig);
-          
+        $provider->setConfig($config['provider_config']);
+        $provider->setPaymentConfig($providerConfig);  
+        
         return $provider;
     }
 }

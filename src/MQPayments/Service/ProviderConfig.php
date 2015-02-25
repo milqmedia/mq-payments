@@ -24,6 +24,9 @@ class ProviderConfig
      * @var string
      */
     protected $defaultMethod = 'ideal';
+    
+    protected $orderDescription;
+    
 
     public function getDefaultMethod()
     {
@@ -47,6 +50,16 @@ class ProviderConfig
     public function getPaymentMethods()
     {
         return $this->paymentMethods;
+    }
+    
+    public function setOrderDescription($description) {
+	    
+	    $this->orderDescription = $description;
+    }
+    
+    public function getOrderDescription() {
+	    
+	    return $this->orderDescription;
     }
     
     public function hasPaymentMethod($name)
