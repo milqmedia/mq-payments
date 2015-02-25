@@ -1,6 +1,6 @@
 <?php
 /**
- * MQMailQueue
+ * MQPayments
  * Copyright (c) 2015 Milq Media.
  *
  * @author      Johan Kuijt <johan@milq.nl>
@@ -9,11 +9,8 @@
  * @link        http://milq.nl
  */
  
-namespace MQPayments\Service;
+namespace MQPayments\Provider;
 
-use \MQPayments\Exception\RuntimeException;
-
-class Adapter
+interface ProviderInterface
 {
-	
 }
