@@ -15,7 +15,7 @@ use Mollie_API_Client;
 use Mollie_API_Object_Method;
 use MQPayments\Exception\RuntimeException;
 
-class MollieProvider implements ProviderInterface
+class MollieProvider extends AbstractProvider implements ProviderInterface
 {
 	private $apiKey;
 	
@@ -73,10 +73,19 @@ class MollieProvider implements ProviderInterface
 	
 	public function getIdealIssuers() {
 		
-		$mollie = $this->getMollie();
-	
-		$issuers = $mollie->issuers->all();
-
+		$cache = $this->getCache();
+		
+		$key    = 'ideal-issuers-' . $this->apiKey;
+		$issuers = $cache->getItem($key, $success);
+		
+		if (!$success || empty($issuers)) {
+			
+			$mollie = $this->getMollie();
+			$issuers = $mollie->issuers->all();
+			
+			$cache->setItem($key, $issuers);
+		}
+		
 		return $issuers;
 	}
 	
