@@ -18,6 +18,7 @@ return array(
 		'methods' => array(
 			'ideal'			=> true,
 			'creditcard' 	=> true,	
+			'paypal' 		=> false,
 		),
 		'default_method'	=> 'ideal',
 		'provider'			=> 'mollie',
