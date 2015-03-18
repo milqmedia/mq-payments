@@ -16,6 +16,7 @@ class ProviderConfig
 	private $paymentMethods = array(
 		'ideal' 		=> true, 
 		'creditcard'	=> true, 
+		'paypal'		=> true, 
 	);
 	
     /**
