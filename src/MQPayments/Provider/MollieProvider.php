@@ -66,6 +66,9 @@ class MollieProvider extends AbstractProvider implements ProviderInterface
 			case 'creditcard': 
 				return Mollie_API_Object_Method::CREDITCARD;
 			break;
+			case 'paypal': 
+				return Mollie_API_Object_Method::PAYPAL;
+			break;
 			default:
 				return Mollie_API_Object_Method::CREDITCARD;
 		}
