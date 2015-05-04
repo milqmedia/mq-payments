@@ -85,8 +85,11 @@ class MollieProvider extends AbstractProvider implements ProviderInterface
 			
 			$mollie = $this->getMollie();
 			$issuers = $mollie->issuers->all();
+
+			$cache->setItem($key, serialize($issuers));
+		} else {
 			
-			$cache->setItem($key, $issuers);
+			$issuers = unserialize($issuers);
 		}
 		
 		return $issuers;
