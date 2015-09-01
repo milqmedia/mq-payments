@@ -19,6 +19,8 @@ return array(
 			'ideal'			=> true,
 			'creditcard' 	=> true,	
 			'paypal' 		=> false,
+			'sofort' 		=> false,
+			'mistercash'	=> false,
 		),
 		'default_method'	=> 'ideal',
 		'provider'			=> 'mollie',

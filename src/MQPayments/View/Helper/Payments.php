@@ -19,7 +19,7 @@ class Payments extends AbstractHelper implements ServiceLocatorAwareInterface
 
 		$provider = $this->getServiceLocator()->getServiceLocator()->get('MQPayments\Service\Provider');
 		$paymentConfig = $provider->getPaymentConfig();
-		
+
 		return $paymentConfig->hasPaymentMethod($method);
 	}
 	

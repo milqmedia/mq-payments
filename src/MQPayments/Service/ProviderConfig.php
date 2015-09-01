@@ -17,6 +17,8 @@ class ProviderConfig
 		'ideal' 		=> true, 
 		'creditcard'	=> true, 
 		'paypal'		=> true, 
+		'sofort' 		=> false,
+		'mistercash'	=> false,
 	);
 	
     /**

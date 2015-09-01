@@ -24,7 +24,7 @@ class ProviderFactory implements FactoryInterface
         $config 		= $serviceLocator->get('config');
         $config 		= $config['mq-payments'];
         $providerConfig = new ProviderConfig;
-        
+
         if (array_key_exists('default_method', $config)) {
             $providerConfig->setDefaultMethod($config['default_method']);
         }
@@ -34,7 +34,7 @@ class ProviderFactory implements FactoryInterface
         if (array_key_exists('order_description', $config)) {
             $providerConfig->setOrderDescription($config['order_description']);
         }
-        
+
         $providerManager = $serviceLocator->get('MQPayments\Provider\ProviderManager');
         $provider = $providerManager->get($config['provider']);
 
