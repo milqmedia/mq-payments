@@ -21,12 +21,16 @@ return array(
 			'paypal' 		=> false,
 			'sofort' 		=> false,
 			'mistercash'	=> false,
+			'paypal_rest'	=> false,
 		),
 		'default_method'	=> 'ideal',
 		'provider'			=> 'mollie',
 		'order_description'	=> 'order #%d',
 		'provider_config'	=>	array(
-			'apiKey'	=> '',	
+			'apiKey'				=> '',	
+			'payPalClientId'		=> '',	
+			'payPalClientSecret'	=> '',	
 		),
+		'development_mode' => false,
 	),
 );

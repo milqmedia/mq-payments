@@ -16,6 +16,8 @@ use Zend\ServiceManager\ServiceLocatorInterface;
 
 class ProviderFactory implements FactoryInterface
 {
+	private $paymentProvider;
+	
     /**
      * @param  ServiceLocatorInterface $serviceLocator
      */
@@ -34,13 +36,23 @@ class ProviderFactory implements FactoryInterface
         if (array_key_exists('order_description', $config)) {
             $providerConfig->setOrderDescription($config['order_description']);
         }
-
+		
+		$providerId = $config['provider'];
+		
+		if($this->paymentProvider != null)
+			$providerId = $this->paymentProvider;
+					
         $providerManager = $serviceLocator->get('MQPayments\Provider\ProviderManager');
-        $provider = $providerManager->get($config['provider']);
+        $provider = $providerManager->get($providerId);
 
         $provider->setConfig($config['provider_config']);
         $provider->setPaymentConfig($providerConfig);  
         
         return $provider;
+    }
+    
+    public function setPaymentProvider($providerId) {
+	    
+	    $this->paymentProvider = $providerId;
     }
 }

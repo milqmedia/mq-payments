@@ -17,6 +17,7 @@ class ProviderManager extends AbstractPluginManager
 {
     protected $invokableClasses = array(
        'mollie'    => 'MQPayments\Provider\MollieProvider',
+       'paypal'    => 'MQPayments\Provider\PaypalProvider',
     );
 
     public function validatePlugin($plugin)

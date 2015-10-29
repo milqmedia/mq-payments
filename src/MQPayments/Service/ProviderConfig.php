@@ -16,9 +16,10 @@ class ProviderConfig
 	private $paymentMethods = array(
 		'ideal' 		=> true, 
 		'creditcard'	=> true, 
-		'paypal'		=> true, 
+		'paypal'		=> false, 
 		'sofort' 		=> false,
 		'mistercash'	=> false,
+		'paypal_rest'	=> true, 
 	);
 	
     /**

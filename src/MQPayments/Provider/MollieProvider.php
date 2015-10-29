@@ -120,7 +120,7 @@ class MollieProvider extends AbstractProvider implements ProviderInterface
 		
 		$payment = $mollie->payments->create($data);
 		
-		return $payment;
+		return (object) array('id' => $payment->id, 'url' => $payment->getPaymentUrl(), 'provider' => 'mollie');
 	}
 	
 	public function getPayment($id) {
