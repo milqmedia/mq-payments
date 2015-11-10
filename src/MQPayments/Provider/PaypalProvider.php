@@ -76,7 +76,7 @@ class PaypalProvider extends AbstractProvider implements ProviderInterface
 	        array(
 	            'mode' => ($this->developmentMode) ? 'sandbox' : 'live',
 	            'log.LogEnabled' => true,
-	            'log.FileName' => '../PayPal.log',
+	            'log.FileName' => '/tmp/PayPal.log',
 	            'log.LogLevel' => ($this->developmentMode) ? 'DEBUG' : 'FINE',
 	            'cache.enabled' => true,
 	        )
