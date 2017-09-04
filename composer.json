@@ -9,9 +9,9 @@
     ],
     "homepage": "https://github.com/milqmedia/mq-payments",
     "require": {
-        "php": ">=5.5",
-        "zendframework/zendframework": "2.*",
-        "mollie/mollie-api-php": "1.1.x"
+        "php": ">=7.0",
+        "zendframework/zendframework": "3.*",
+        "mollie/mollie-api-php": "1.9.x"
     },
     "autoload": {
 	    "psr-0": {
