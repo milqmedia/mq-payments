@@ -1,8 +1,8 @@
 <?php
 
 return array(
-	'view_helpers' => array(  
-        'invokables' => array(  
+	'view_helpers' => array(
+        'invokables' => array(
             'payments' => 'MQPayments\View\Helper\Payments',
         ),
     ),
@@ -17,7 +17,7 @@ return array(
 	'mq-payments' => array(
 		'methods' => array(
 			'ideal'			=> true,
-			'creditcard' 	=> true,	
+			'creditcard' 	=> true,
 			'paypal' 		=> false,
 			'sofort' 		=> false,
 			'mistercash'	=> false,
@@ -27,9 +27,9 @@ return array(
 		'provider'			=> 'mollie',
 		'order_description'	=> 'order #%d',
 		'provider_config'	=>	array(
-			'apiKey'				=> '',	
-			'payPalClientId'		=> '',	
-			'payPalClientSecret'	=> '',	
+			'apiKey'				=> '',
+			'payPalClientId'		=> '',
+			'payPalClientSecret'	=> '',
 		),
 		'development_mode' => false,
 	),

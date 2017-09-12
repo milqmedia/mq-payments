@@ -8,7 +8,7 @@
  * @license     http://www.opensource.org/licenses/mit-license.php  MIT License
  * @link        http://milq.nl
  */
- 
+
 namespace MQPayments\Service;
 
 use Zend\ServiceManager\FactoryInterface;
@@ -17,13 +17,13 @@ use Zend\ServiceManager\ServiceLocatorInterface;
 class ProviderFactory implements FactoryInterface
 {
 	private $paymentProvider;
-	
+
     /**
      * @param  ServiceLocatorInterface $serviceLocator
      */
-    public function createService(ServiceLocatorInterface $serviceLocator)
+    public function __invoke(\Interop\Container\ContainerInterface $container, $requestedName, array $options = NULL)
     {
-        $config 		= $serviceLocator->get('config');
+        $config 		= $container->get('config');
         $config 		= $config['mq-payments'];
         $providerConfig = new ProviderConfig;
 
@@ -36,23 +36,29 @@ class ProviderFactory implements FactoryInterface
         if (array_key_exists('order_description', $config)) {
             $providerConfig->setOrderDescription($config['order_description']);
         }
-		
+
 		$providerId = $config['provider'];
-		
+
 		if($this->paymentProvider != null)
 			$providerId = $this->paymentProvider;
-					
-        $providerManager = $serviceLocator->get('MQPayments\Provider\ProviderManager');
-        $provider = $providerManager->get($providerId);
+
+        // $providerManager = $container->get('MQPayments\Provider\ProviderManager');
+        $provider = new \MQPayments\Provider\MollieProvider();
+        // $provider = $providerManager->get($providerId);
 
         $provider->setConfig($config['provider_config']);
-        $provider->setPaymentConfig($providerConfig);  
-        
+        $provider->setPaymentConfig($providerConfig);
+
         return $provider;
     }
-    
+
+    public function createService(ServiceLocatorInterface $services)
+    {
+        return $this($services, 'Provider');
+    }
+
     public function setPaymentProvider($providerId) {
-	    
+
 	    $this->paymentProvider = $providerId;
     }
 }
