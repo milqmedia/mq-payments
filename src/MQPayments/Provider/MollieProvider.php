@@ -109,7 +109,6 @@ class MollieProvider extends AbstractProvider implements ProviderInterface
 			"amount"	  	=> $amount,
 			"description" 	=> $description,
 			"redirectUrl" 	=> $redirectUrl,
-			'recurringType' => 'first',	   // important
 			"method"		=> $this->paymentMethod,
 			"metadata"		=> $this->metadata,
 			"webhookUrl"	=> $this->webhook,
@@ -138,6 +137,10 @@ class MollieProvider extends AbstractProvider implements ProviderInterface
 
 	public function hasValidMandate($customerId){
 
+		if (!$customerId) {
+			return false;
+		}
+
 		$mollie = $this->getMollie();
 
 		$mandates = $mollie->customers_mandates->withParentId($customerId)->all();
@@ -163,7 +166,7 @@ class MollieProvider extends AbstractProvider implements ProviderInterface
 				'redirectUrl' 	=> $redirectUrl,
 				'recurringType' => 'first',	   // important
 				'metadata'		=> $this->metadata,
-				'webhookUrl'	=> 'http://mollie.florian.ultrahook.com/',
+				'webhookUrl'	=> $this->webhook,
 				'locale'		=> $this->locale,
 			);
 
@@ -179,13 +182,11 @@ class MollieProvider extends AbstractProvider implements ProviderInterface
 				'redirectUrl' 	=> $redirectUrl,
 				'recurringType' => 'recurring',	   // important
 				'metadata'		=> $this->metadata,
-				'webhookUrl'	=> 'http://mollie.florian.ultrahook.com/',
+				'webhookUrl'	=> $this->webhook,
 				'locale'		=> $this->locale,
 			);
 
 			$payment = $mollie->payments->create($data);
-
-			var_dump($payment);
 
 			return (object) array('id' => $payment->id, 'url' => $redirectUrl, 'provider' => 'mollie');
 		}
